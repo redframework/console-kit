@@ -10,9 +10,12 @@
 namespace App\Bootstrap;
 
 use Red\CommanderService\Commander;
+use Red\FilterService\Filter;
 use Red\Output\Output;
 use Red\EnvironmentProvider\Environment;
 use Red\Red;
+use Red\SanitizeService\Sanitize;
+use Red\ValidateService\Validate;
 
 /**
  * Class Bootstrap
@@ -64,6 +67,14 @@ class Bootstrap
 
         date_default_timezone_set(Environment::get('PROJECT', 'Timezone'));
 
+        // Set Up Custom Validation Roles
+        Validate::initialize();
+
+        // Set Up Custom Sanitization Roles
+        Sanitize::initialize();
+
+        // Set Up Custom Filter Roles
+        Filter::initialize();
 
         require_once ROOT_PATH . 'commands' . DS . 'commands.php';
 
